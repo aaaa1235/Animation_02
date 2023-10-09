@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태양계 애니메이션</title>
+
+    <style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: rgb(15, 2, 16);
+    }
+
+    .sun {
+        width: 400px;
+        height: 400px;
+        background-color: rgb(255, 69, 22);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        box-shadow: 0 0 50px rgb(255, 236, 173);
+    }
+
+    .orbit_1 {
+        width: 650px;
+        height: 650px;
+        border: 0.5px solid rgba(255, 255, 255, 0.739);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Mercury {
+        width: 10px;
+        height: 10px;
+        background-color: #ffe260;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 20px rgb(255, 251, 226);
+    }
+
+    .orbit_2 {
+        width: 760px;
+        height: 760px;
+        border: 0.5px solid white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Venus{
+        width: 14px;
+        height: 14px;
+        background-color: #ffce1e;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 30px rgb(255, 243, 165);
+    }
+
+    .orbit_3 {
+        width: 930px;
+        height: 930px;
+        border: 1.3px solid white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Earth{
+        width: 16px;
+        height: 16px;
+        background-color: #11ff54;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 30px rgb(199, 255, 121);
+    }
+
+    .orbit_4 {
+        width: 1050px;
+        height: 1050px;
+        border: 0.5px solid white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Mars {
+        width: 12px;
+        height: 12px;
+        background-color: #ff4a2a;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 20px rgb(255, 177, 167);
+    }
+
+    .orbit_5 {
+        width: 1250px;
+        height: 1250px;
+        border: 1.4px solid rgba(255, 255, 255, 0.582);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Jupiter {
+    width: 100px;
+    height: 100px;
+    background-color: #ffc497;
+    border-radius: 50%;
+    position: absolute;
+    animation: rotatePlanet 5s linear infinite;
+    animation-duration: 2s;
+    top: 0;
+    left: calc(50% - 10px);
+    box-shadow: 0 0 20px rgba(255, 212, 169, 0.813);
+    overflow: hidden; /* 자식 요소가 부모 요소를 벗어나지 않도록 overflow 속성 추가 */
+}
+
+/* 갈색 무늬 그라데이션을 갖는 자식 요소 추가 */
+.planet-Jupiter::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: repeating-conic-gradient(
+        from 0deg,
+        #cd7332 0deg 10deg, /* 갈색 무늬 색상 및 각도 조절 */
+        transparent 0deg 20deg /* 무늬 간격을 조절 */
+    );
+}
+
+    .orbit_6 {
+        width: 1500px;
+        height: 1500px;
+        border: 1.3px solid white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Saturn {
+    width: 85px;
+    height: 85px;
+    background-color: #dc894a;
+    border-radius: 50%;
+    position: absolute;
+    animation: rotatePlanet 5s linear infinite;
+    animation-duration: 2s;
+    top: 0;
+    left: calc(50% - 10px);
+}
+
+/* 고리의 외곽 */
+.planet-Saturn::before {
+    content: "";
+    width: 120px; /* 고리의 너비 조절 */
+    height: 4px; /* 고리의 두께 조절 */
+    background-color: rgba(255, 255, 255, 0.265); /* 투명한 흰색 고리의 색상 및 투명도 조절 */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 224, 193, 0.813);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg); /* 고리의 회전 및 기울임 조절 */
+    z-index: -1; /* 토성의 뒤로 가려지도록 설정 */
+}
+
+/* 고리의 내부 */
+.planet-Saturn::after {
+    content: "";
+    width: 120px; /* 고리의 내부 너비 조절 */
+    height: 4px; /* 고리의 내부 두께 조절 */
+    background-color: rgba(255, 255, 255, 0.404); /* 흰색 고리의 색상 및 투명도 조절 */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 224, 193, 0.813);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg); /* 고리의 회전 및 기울임 조절 */
+    z-index: 1; /* 토성 위에 표시되도록 설정 */
+}
+
+
+    .orbit_7 {
+        width: 1670px;
+        height: 1670px;
+        border: 0.5px solid white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Uranus {
+        width:35px;
+        height: 35px;
+        background-color: #85f1ff;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 20px rgba(183, 255, 253, 0.813);
+    }
+
+    .orbit_8 {
+        width: 1770px;
+        height: 1770px;
+        border: 0.5px solid rgba(255, 255, 255, 0.689);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotateOrbit 10s linear infinite;
+    }
+
+    .planet-Neptune {
+        width:32px;
+        height: 32px;
+        background-color: #4397ff;
+        border-radius: 50%;
+        position: absolute;
+        animation: rotatePlanet 5s linear infinite;
+        animation-duration: 2s;
+        top: 0;
+        left: calc(50% - 10px);
+        box-shadow: 0 0 20px rgba(165, 241, 255, 0.444);
+    }
+
+    @keyframes rotateOrbit {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    @keyframes rotatePlanet {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+    .orbit_1{
+        animation-duration: 3.1s;
+    }
+
+    .orbit_2 {
+        animation-duration: 8s;
+    }
+
+    .orbit_3 {
+        animation-duration: 3.8s;
+    }
+
+    .orbit_4 {
+        animation-duration: 3.6s;
+    }
+
+    .orbit_5 {
+        animation-duration: 5.8s;
+    }
+
+    .orbit_6 {
+        animation-duration: 10s;
+    }
+
+    .orbit_7 {
+        animation-duration: 9s;
+    }
+
+    .orbit_8 {
+        animation-duration: 5.2s;
+    }
+
+    #title{
+        font-size: 60pt;
+        font-family: Arial, Helvetica, sans-serif;
+        color: aliceblue;
+        font-weight: bold;
+        text-align: left;
+        line-height: 85px;
+        margin-bottom: 54px;
+        transition: text-shadow 0.1s ease-out 0s;
+    }
+    #title:hover {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.515);
+    }
+    #para{
+        font-size: 11pt;
+        font-family: Helvetica, sans-serif;
+        color: rgb(168, 176, 184);
+        font-weight: 100;
+        text-align: left;
+        line-height: 25px;
+        margin-left: 6px;
+        white-space: nowrap;
+    }
+    
+    /* 스피드 조절 */
+    .speed-control {
+        position: absolute;
+        top: 473px;
+        bottom: 200px;
+        left: 6px;
+        width: 230px;
+        height: 1.5px;
+        background-color: rgba(255, 255, 255, 0.319);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .handle {
+        width: 15px;
+        height: 15px;
+        background-color: white;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        left: 0;
+    }
+    .handle:hover {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.844);
+    }
+
+    .brightness-control {
+    position: absolute;
+    top: 504px;
+    left: 6px;
+    width: 230px;
+    height: 1.5px;
+    background-color: rgba(255, 255, 255, 0.319);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    }
+
+    /* 밝기 표시 스타일 */
+    .brightness-indicator {
+        width: 15px;
+        height: 15px;
+        background-color: White;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        left: 0;
+    }
+    .brightness-indicator:hover {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.844);
+    }
+
+    .learn-more {
+        font-size: 12pt;
+        font-family: Helvetica, sans-serif;
+        color: aliceblue;
+        border: 1px solid white;
+        border-radius: 50px;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 0;
+        padding-bottom: 16px;
+        height: 32px;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        margin-top: 110px;
+        margin-left: 6px;
+    }
+    a {
+        color: aliceblue;
+        text-decoration: none;
+    }
+    .learn-more:link{
+        color: aliceblue;
+        text-decoration: none;
+      }
+    a:active{
+        color: rgb(0, 153, 255);
+        text-decoration: none;
+    }
+    .learn-more:hover {
+        background-color: rgb(15, 2, 16);
+        color: aliceblue;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.605);
+        transition: 0 ease 0.1s;
+        text-decoration: none;
+    }
+    .learn-more:visited{
+        color: aliceblue;
+        text-decoration: none;
+    }
+    .text {
+        position: absolute;
+        top: 33%;
+        right: 90px;
+        transform: translateY(-50%);
+    }
+
+    .system {
+        position: absolute;
+        bottom: -40px;
+        left: 50px;
+        right: 95%;
+        transform: translate(10%, 10%);
+    }
+    </style>
+</head>
+<body>
+    <div class="system">
+        <div class="sun"></div>
+
+        <div class="orbit_1">
+            <div class="planet-Mercury"></div>
+        </div>
+        <div class="orbit_2">
+            <div class="planet-Venus"></div>
+        </div>
+        <div class="orbit_3">
+            <div class="planet-Earth"></div>
+        </div>
+        <div class="orbit_4">
+            <div class="planet-Mars"></div>
+        </div>
+        <div class="orbit_5">
+            <div class="planet-Jupiter"></div>
+        </div>
+        <div class="orbit_6">
+            <div class="planet-Saturn"></div>
+        </div>
+        <div class="orbit_7">
+            <div class="planet-Uranus"></div>
+        </div>
+        <div class="orbit_8">
+            <div class="planet-Neptune"></div>
+        </div>
+
+    </div>
+
+    <div class="text">
+        <p id="title">Solar<br>System</p>
+        <p id="para">
+            The solar system is a celestial ensemble that revolves around our Sun.<br>
+            It consists of eight major planets, along with numerous satellites,<br>
+            asteroids, and comets, all orbiting around the Sun. The eight major<br>
+            planets in the solar system are Mercury, Venus, Earth, Mars, Jupiter, Saturn, <br>
+            Uranus, and Neptune, each with its own unique characteristics.
+        </p>
+
+        <div class="speed-control">
+            <div class="handle"></div>
+        </div>
+
+        <div class="brightness-control">
+            <div class="brightness-indicator"></div>
+        </div>
+
+        <div class="learn-more">
+            <p><a href="https://science.nasa.gov/solar-system/planets/">Learn More</p>
+        </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+
+    <script>
+
+const handle = document.querySelector('.handle');
+const orbits = document.querySelectorAll('.orbit_1, .orbit_2, .orbit_3, .orbit_4, .orbit_5, .orbit_6, .orbit_7, .orbit_8');
+
+let isDragging = false;
+let initialX = 0;
+let handleLeft = 0;
+const maxOrbitThickness = 2; // 최대 궤도 굵기 (2px)
+
+handle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    initialX = e.clientX;
+    handleLeft = handle.getBoundingClientRect().left;
+    document.body.style.userSelect = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const newX = e.clientX;
+    const diffX = newX - initialX;
+    let newLeft = handleLeft + diffX;
+    const sliderLeft = document.querySelector('.speed-control').getBoundingClientRect().left;
+    const maxHandleX = document.querySelector('.speed-control').offsetWidth - handle.offsetWidth;
+
+    if (newLeft < sliderLeft) newLeft = sliderLeft;
+    if (newLeft > sliderLeft + maxHandleX) newLeft = sliderLeft + maxHandleX;
+
+    handle.style.left = newLeft - sliderLeft + 'px';
+
+    const maxThickness = maxOrbitThickness; // 최대 굵기
+
+    const thicknessRange = maxThickness; // 굵기 범위
+    const thicknessFactor = (newLeft - sliderLeft) / maxHandleX * thicknessRange;
+
+    // 각 궤도의 굵기를 업데이트
+    orbits.forEach((orbit, index) => {
+        const thickness = thicknessFactor;
+        orbit.style.borderWidth = `${thickness}px`;
+    });
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    document.body.style.userSelect = 'auto';
+});
+
+handle.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+});
+
+
+
+
+        // 밝기 조절 인디케이터
+        const brightnessIndicator = document.querySelector('.brightness-indicator');
+        const brightnessControl = document.querySelector('.brightness-control');
+        const planets = document.querySelectorAll('.sun, .planet-Mercury, .planet-Venus, .planet-Earth, .planet-Mars, .planet-Jupiter, .planet-Saturn, .planet-Uranus, .planet-Neptune');
+
+        let isDraggingBrightness = false;
+        let initialBrightnessX = 0;
+        let brightnessLeft = 0;
+        let currentBrightness = 50;
+
+        brightnessIndicator.addEventListener('mousedown', (e) => {
+            isDraggingBrightness = true;
+            initialBrightnessX = e.clientX;
+            brightnessLeft = brightnessIndicator.getBoundingClientRect().left;
+            document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDraggingBrightness) return;
+
+            const newBrightnessX = e.clientX;
+            const brightnessDiffX = newBrightnessX - initialBrightnessX;
+            let newBrightnessLeft = brightnessLeft + brightnessDiffX;
+            const brightnessControlLeft = brightnessControl.getBoundingClientRect().left;
+            const maxBrightnessIndicatorX = brightnessControl.offsetWidth - brightnessIndicator.offsetWidth;
+
+            if (newBrightnessLeft < brightnessControlLeft) newBrightnessLeft = brightnessControlLeft;
+            if (newBrightnessLeft > brightnessControlLeft + maxBrightnessIndicatorX) newBrightnessLeft = brightnessControlLeft + maxBrightnessIndicatorX;
+
+            brightnessIndicator.style.left = newBrightnessLeft - brightnessControlLeft + 'px';
+
+            // 밝기 값을 계산 (0에서 100 사이의 값으로 매핑)
+            const brightnessRange = maxBrightnessIndicatorX / 2;
+            const brightnessChange = (newBrightnessLeft - brightnessControlLeft - brightnessRange) / brightnessRange;
+            currentBrightness = 50 + Math.round(brightnessChange * 50);
+
+            // 행성들의 밝기(box-shadow)를 업데이트
+            planets.forEach((planet) => {
+                planet.style.boxShadow = `0 0 ${currentBrightness}px rgba(255, 236, 173, 1)`;
+            });
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDraggingBrightness = false;
+            document.body.style.userSelect = 'auto';
+        });
+
+        brightnessIndicator.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+
+</script>
+    
+    
+</body>
+</html>
